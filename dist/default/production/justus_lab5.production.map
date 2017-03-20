@@ -60,11 +60,11 @@ section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200                0xce           0x135  (309)
 .const                       0x2ce                0x10            0x18  (24)
-.text                        0x2de               0x2dc           0x44a  (1098)
-.dinit                       0x5ba                0x1a            0x27  (39)
-.text                        0x5d4                 0xc            0x12  (18)
+.text                        0x2de               0x2e2           0x453  (1107)
+.dinit                       0x5c0                0x3e            0x5d  (93)
+.text                        0x5fe                 0xc            0x12  (18)
 
-                 Total program memory used (bytes):          0x5d0  (1488) 2%
+                 Total program memory used (bytes):          0x60f  (1551) 2%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0xfc]
@@ -78,9 +78,9 @@ Data Memory  [Origin = 0x800, Length = 0x2000]
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
 .ndata                       0x800                   0             0x2  (2)
-.data                        0x802                   0             0xe  (14)
+.data                        0x802                   0            0x44  (68)
 
-                 Total data memory used (bytes):           0x10  (16) <1%
+                 Total data memory used (bytes):           0x46  (70) <1%
 
 
 Dynamic Memory Usage
@@ -88,20 +88,22 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x810                              0x1ff0  (8176)
+stack                        0x846                              0x1fba  (8122)
 
-                 Maximum dynamic memory (bytes):         0x1ff0  (8176)
+                 Maximum dynamic memory (bytes):         0x1fba  (8122)
 
 
 External Symbols in Data Memory (by address):
 
                     0x0800                  _contrast
                     0x0802                  _testB
+                    0x080f                  _testC
 
 External Symbols in Data Memory (by name):
 
                     0x0800                  _contrast
                     0x0802                  _testB
+                    0x080f                  _testC
 
 External Symbols in Program Memory (by address):
 
@@ -123,8 +125,8 @@ External Symbols in Program Memory (by address):
                   0x000546                  _lcd_cmdSeqEnd
                   0x000582                  _setup
                   0x0005a2                  _main
-                  0x0005d4                  _delay_100us
-                  0x0005da                  _delay_1ms
+                  0x0005fe                  _delay_100us
+                  0x000604                  _delay_1ms
 
 External Symbols in Program Memory (by name):
 
@@ -133,8 +135,8 @@ External Symbols in Program Memory (by name):
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x0005d4                  _delay_100us
-                  0x0005da                  _delay_1ms
+                  0x0005fe                  _delay_100us
+                  0x000604                  _delay_1ms
                   0x0002f8                  _lcd_cmd
                   0x000546                  _lcd_cmdSeqEnd
                   0x000516                  _lcd_cmdSeqMid
@@ -220,10 +222,10 @@ __CONFIG1
 .comment
  *(.comment)
 
-.debug_info       0x000000        0x83b
+.debug_info       0x000000        0x86e
  *(.debug_info)
- .debug_info      0x000000        0x7b9 build/default/production/lcd_display.o
- .debug_info      0x0007b9         0x82 build/default/production/delayLib.o
+ .debug_info      0x000000        0x7ec build/default/production/lcd_display.o
+ .debug_info      0x0007ec         0x82 build/default/production/delayLib.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x18d
@@ -231,10 +233,10 @@ __CONFIG1
  .debug_abbrev    0x000000        0x179 build/default/production/lcd_display.o
  .debug_abbrev    0x000179         0x14 build/default/production/delayLib.o
 
-.debug_line       0x000000        0x16b
+.debug_line       0x000000        0x16c
  *(.debug_line)
- .debug_line      0x000000        0x12f build/default/production/lcd_display.o
- .debug_line      0x00012f         0x3c build/default/production/delayLib.o
+ .debug_line      0x000000        0x130 build/default/production/lcd_display.o
+ .debug_line      0x000130         0x3c build/default/production/delayLib.o
 
 .debug_frame      0x000000        0x164
  *(.debug_frame)
@@ -251,10 +253,10 @@ __CONFIG1
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000         0xe6
+                  0x000000         0xf0
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0xe6 build/default/production/lcd_display.o
+                  0x000000         0xf0 build/default/production/lcd_display.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -868,9 +870,10 @@ __c30_signature
  .ndata             0x0800          0x2 build/default/production/lcd_display.o
                     0x0800                  _contrast
 
-.data               0x0802          0xe
- .data              0x0802          0xe build/default/production/lcd_display.o
+.data               0x0802         0x44
+ .data              0x0802         0x44 build/default/production/lcd_display.o
                     0x0802                  _testB
+                    0x080f                  _testC
 
 .config_JTAGEN    0x00abfe          0x2
  .config_JTAGEN
@@ -883,8 +886,8 @@ __c30_signature
  .const             0x82ce         0x10 build/default/production/lcd_display.o
                     0x82ce                  _test
 
-.text             0x0002de        0x2dc
- .text            0x0002de        0x2dc build/default/production/lcd_display.o
+.text             0x0002de        0x2e2
+ .text            0x0002de        0x2e2 build/default/production/lcd_display.o
                   0x0002de                  _wait
                   0x0002f8                  _lcd_cmd
                   0x00034a                  _lcd_init
@@ -898,10 +901,10 @@ __c30_signature
                   0x000582                  _setup
                   0x0005a2                  _main
 
-.dinit            0x0005ba         0x1a
- .dinit           0x0005ba         0x1a data_init
+.dinit            0x0005c0         0x3e
+ .dinit           0x0005c0         0x3e data_init
 
-.text             0x0005d4          0xc
- .text            0x0005d4          0xc build/default/production/delayLib.o
-                  0x0005d4                  _delay_100us
-                  0x0005da                  _delay_1ms
+.text             0x0005fe          0xc
+ .text            0x0005fe          0xc build/default/production/delayLib.o
+                  0x0005fe                  _delay_100us
+                  0x000604                  _delay_1ms

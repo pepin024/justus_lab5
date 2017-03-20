@@ -34,6 +34,7 @@
 unsigned char contrast = 0b00010111; //global variable for constrast
 const char test[] = {' ','H','E','L','L','O',' ',' ', ' ','W','o','r','l','d','\0'};
 char testB[] = "Hello World!";
+char testC[] = "^( ^.^ )^  (> ^.^)>  ^( ^.^ )^  <(^.^ <)  v( ^.^ )v  ";
 
 void wait(int t)
 {
@@ -231,6 +232,7 @@ int main(void) {
     lcd_init();
     //lcd_printChar('A');
     lcd_printStrB(testB, 0);
+    lcd_printStrB(testC, 1);
     while(1)
     {
         wait(500);
