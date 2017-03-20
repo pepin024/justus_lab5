@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=olso7127_Lab5.X
+PROJECTNAME=justus_lab5
 
 # Active Configuration
 DEFAULTCONF=default

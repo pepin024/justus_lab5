@@ -28,6 +28,7 @@
 #pragma config JTAGEN = OFF             // JTAG Port Enable (JTAG port is disabled)
 
 #define SLAVE_ADDRESS 0b01111100 //set to write, last bit is R/nW
+#define CONTROL_ADDRESS 0b000000
 
 unsigned char contrast = 0b00010111; //global variable for constrast
 const char test[] = {' ','H','E','L','L','O',' ',' ', ' ','W','o','r','l','d','\0'};
@@ -147,6 +148,52 @@ void lcd_printStr(const char *s)
         i++;
     }
     
+}
+
+void lcd_cmdSeqStart(bit RS, char command){
+    I2C2CONbits.SEN = 1; //START bit
+    while(I2C2CONbits.SEN==1);//wait for SEN to clear
+    IFS3bits.MI2C2IF = 0; //reset
+    
+    I2C2TRN = SLAVE_ADDRESS; //8 bits consisting of the salve address and the R/nW bit (0 = write, 1 = read)
+    while(IFS3bits.MI2C2IF==0); //wait for it to be 1, ACK
+    IFS3bits.MI2C2IF = 0; //reset
+    
+    I2C2TRN = ((1 << 7) | (RS << 6) | CONTROL_ADDRESS);
+    while(IFS3bits.MI2C2IF == 0);
+    IFS3bits.MI2C2IF = 0;
+    
+    I2C2TRN = command;
+    while(IFS3bits.MI2C2IF == 0);
+    IFS3bits.MI2C2IF = 0;
+    return;
+}
+
+void lcd_cmdSeqMid(bit RS, char command){
+    I2C2TRN = ((1 << 7) | (RS << 6) | CONTROL_ADDRESS);
+    while(IFS3bits.MI2C2IF == 0);
+    IFS3bits.MI2C2IF = 0;
+    
+    I2C2TRN = command;
+    while(IFS3bits.MI2C2IF == 0);
+    IFS3bits.MI2C2IF = 0;
+    return;
+    
+}
+
+void lcd_cmdSeqEnd(bit RS, char command){
+    I2C2TRN = ((0 << 7) | (RS << 6) | CONTROL_ADDRESS);
+    while(IFS3bits.MI2C2IF == 0);
+    IFS3bits.MI2C2IF = 0;
+    
+    I2C2TRN = command;
+    while(IFS3bits.MI2C2IF == 0);
+    IFS3bits.MI2C2IF = 0;
+    
+    I2C2CONbits.PEN = 1;
+    while(I2C2CONbits.PEN == 1);
+    IFS3bits.MI2C2IF = 0;
+    return;
 }
 
 void setup(void)
