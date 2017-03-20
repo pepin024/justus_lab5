@@ -27,7 +27,9 @@
 #pragma config GCP = OFF                // General Code Segment Code Protect (Code protection is disabled)
 #pragma config JTAGEN = OFF             // JTAG Port Enable (JTAG port is disabled)
 
-unsigned char contrast; //global variable for constrast
+#define SLAVE_ADDRESS 0b01111100 //set to write, last bit is R/nW
+
+unsigned char contrast = 0b00111111; //global variable for constrast
 
 void wait(int t)
 {
@@ -43,8 +45,9 @@ void lcd_cmd(char command)
 {
     I2C2CONbits.SEN = 1; //START bit
     while(I2C2CONbits.SEN==1);//wait for SEN to clear
+     IFS3bits.MI2C2IF = 0; //reset
     
-    I2C2TRN = 0b01111100; //8 bits consisting of the salve address and the R/nW bit (0 = write, 1 = read)
+    I2C2TRN = SLAVE_ADDRESS; //8 bits consisting of the salve address and the R/nW bit (0 = write, 1 = read)
     while(IFS3bits.MI2C2IF==0); //wait for it to be 1, ACK
     IFS3bits.MI2C2IF = 0; //reset
     
@@ -57,7 +60,8 @@ void lcd_cmd(char command)
     IFS3bits.MI2C2IF = 0; //reset
     
     I2C2CONbits.PEN = 1; //STOP bit
-    while(I2C2CONbits.SEN == 1);//wait for Stop bit to complete
+    while(I2C2CONbits.PEN == 1);//wait for Stop bit to complete
+     IFS3bits.MI2C2IF = 0; //reset
 }
 
 void lcd_init(void)
@@ -98,8 +102,9 @@ void lcd_printChar(char myChar)
 {
     I2C2CONbits.SEN = 1; //START bit
     while(I2C2CONbits.SEN==1);//wait for SEN to clear
+    IFS3bits.MI2C2IF = 0; //reset
     
-    I2C2TRN = 0b01111100; //8 bits consisting of the salve address and the R/nW bit (0 = write, 1 = read)
+    I2C2TRN = SLAVE_ADDRESS; //8 bits consisting of the salve address and the R/nW bit (0 = write, 1 = read)
     while(IFS3bits.MI2C2IF==0); //wait for it to be 1, ACK
     IFS3bits.MI2C2IF = 0; //reset
     
@@ -112,7 +117,8 @@ void lcd_printChar(char myChar)
     IFS3bits.MI2C2IF = 0; //reset
     
     I2C2CONbits.PEN = 1; //STOP bit
-    while(I2C2CONbits.SEN == 1);//wait for Stop bit to complete
+    while(I2C2CONbits.PEN == 1);//wait for Stop bit to complete
+    IFS3bits.MI2C2IF = 0; //reset
 }
 
 void setup(void)
@@ -131,5 +137,11 @@ void setup(void)
 int main(void) {
     setup();
     lcd_init();
+    while(1)
+    {
+        wait(500);
+        asm("btg LATA, #2");
+    lcd_printChar('A');
+    }
     return 0;
 }
