@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>delayHeader.h</itemPath>
+      <itemPath>lcd_display.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -32,7 +33,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PK3OBPlatformTool</platformTool>
         <languageToolchain>XC16</languageToolchain>
-        <languageToolchainVersion>1.30</languageToolchainVersion>
+        <languageToolchainVersion>1.31</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <compileType>
@@ -148,6 +149,7 @@
         <property key="linker-stack" value="true"/>
         <property key="linker-symbols" value=""/>
         <property key="map-file" value="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map"/>
+        <property key="no-ivt" value="false"/>
         <property key="oXC16ld-extra-opts" value=""/>
         <property key="oXC16ld-fill-upper" value="0"/>
         <property key="oXC16ld-force-link" value="false"/>
@@ -186,6 +188,7 @@
         <property key="ToolFirmwareFilePath"
                   value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="memories.bootflash" value="true"/>
         <property key="memories.configurationmemory" value="true"/>
         <property key="memories.dataflash" value="true"/>
@@ -532,6 +535,10 @@
         <property key="warningmessagebreakoptions.W9804_SCL_UNRECOGNIZED_LABEL"
                   value="report"/>
         <property key="warningmessagebreakoptions.W9805_SCL_UNRECOGNIZED_VAR"
+                  value="report"/>
+        <property key="warningmessagebreakoptions.W9901_RTSP_INVALID_OPERATION_SELECTION"
+                  value="report"/>
+        <property key="warningmessagebreakoptions.W9902_RTSP_FLASH_PROGRAM_WRITE_PROTECTED"
                   value="report"/>
         <property key="warningmessagebreakoptions.displaywarningmessagesoption"
                   value=""/>

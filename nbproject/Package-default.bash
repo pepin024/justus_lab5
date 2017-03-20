@@ -10,9 +10,9 @@ CND_CONF=default
 CND_DISTDIR=dist
 TMPDIR=build/${CND_CONF}/${IMAGE_TYPE}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/olso7127_Lab5.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-OUTPUT_BASENAME=olso7127_Lab5.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-PACKAGE_TOP_DIR=olso7127lab5.x/
+OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/justus_lab5.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+OUTPUT_BASENAME=justus_lab5.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+PACKAGE_TOP_DIR=justuslab5/
 
 # Functions
 function checkReturnCode
@@ -57,15 +57,15 @@ mkdir -p ${TMPDIR}
 
 # Copy files and create directories and links
 cd "${TOP}"
-makeDirectory ${TMPDIR}/olso7127lab5.x/bin
+makeDirectory ${TMPDIR}/justuslab5/bin
 copyFileToTmpDir "${OUTPUT_PATH}" "${TMPDIR}/${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}" 0755
 
 
 # Generate tar file
 cd "${TOP}"
-rm -f ${CND_DISTDIR}/${CND_CONF}/package/olso7127lab5.x.tar
+rm -f ${CND_DISTDIR}/${CND_CONF}/package/justuslab5.tar
 cd ${TMPDIR}
-tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/olso7127lab5.x.tar *
+tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/justuslab5.tar *
 checkReturnCode
 
 # Cleanup

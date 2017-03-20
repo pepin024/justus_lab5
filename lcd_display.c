@@ -6,6 +6,7 @@
  */
 #include "xc.h"
 #include "delayHeader.h"
+#include "lcd_display.h"
 #include <p24Fxxxx.h>
 
 #pragma config POSCMOD = NONE           // Primary Oscillator Select (Primary oscillator disabled)
@@ -32,6 +33,7 @@
 
 unsigned char contrast = 0b00010111; //global variable for constrast
 const char test[] = {' ','H','E','L','L','O',' ',' ', ' ','W','o','r','l','d','\0'};
+char testB[] = "Hello World!";
 
 void wait(int t)
 {
@@ -150,7 +152,22 @@ void lcd_printStr(const char *s)
     
 }
 
-void lcd_cmdSeqStart(bit RS, char command){
+void lcd_printStrB(char text[], int row){
+    int i = 0;
+    lcd_setCursor(row,0);
+    lcd_cmdSeqStart(1, text[i]);
+    
+    for(i = 1; i < 40; i++){
+        if(text[i] == '/0')
+            break;
+        lcd_cmdSeqMid(1, text[i]);
+    }
+    
+    lcd_cmdSeqEnd(0, 0b00001100); //Makes sure display is on and sends END sequence
+    return;
+}
+
+void lcd_cmdSeqStart(int RS, char command){
     I2C2CONbits.SEN = 1; //START bit
     while(I2C2CONbits.SEN==1);//wait for SEN to clear
     IFS3bits.MI2C2IF = 0; //reset
@@ -169,7 +186,7 @@ void lcd_cmdSeqStart(bit RS, char command){
     return;
 }
 
-void lcd_cmdSeqMid(bit RS, char command){
+void lcd_cmdSeqMid(int RS, char command){
     I2C2TRN = ((1 << 7) | (RS << 6) | CONTROL_ADDRESS);
     while(IFS3bits.MI2C2IF == 0);
     IFS3bits.MI2C2IF = 0;
@@ -181,7 +198,7 @@ void lcd_cmdSeqMid(bit RS, char command){
     
 }
 
-void lcd_cmdSeqEnd(bit RS, char command){
+void lcd_cmdSeqEnd(int RS, char command){
     I2C2TRN = ((0 << 7) | (RS << 6) | CONTROL_ADDRESS);
     while(IFS3bits.MI2C2IF == 0);
     IFS3bits.MI2C2IF = 0;
@@ -212,7 +229,8 @@ void setup(void)
 int main(void) {
     setup();
     lcd_init();
-    lcd_printStr(&test);
+    lcd_printChar('A');
+    //lcd_printStrB(testB, 0);
     while(1)
     {
         wait(500);
