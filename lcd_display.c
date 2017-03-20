@@ -30,7 +30,7 @@
 #define SLAVE_ADDRESS 0b01111100 //set to write, last bit is R/nW
 
 unsigned char contrast = 0b00010111; //global variable for constrast
-const char test[] = {' ','H','E','L','L','O',' ',' ', ' ','W','o','r','l','d','\0'};
+const char test[] = "Do This   Work";
 
 void wait(int t)
 {
@@ -125,28 +125,67 @@ void lcd_printChar(char myChar)
 void lcd_printStr(const char *s)
 {
     int i = 0;
-    while(i<8)
-    {
-        lcd_printChar(*s);
-        s+=1;
-        if(*s == 0)
-        {
-            break;
-        }
-        i++;
-    }
-    lcd_setCursor(1,0);
+    char out;
+    
+    I2C2CONbits.SEN = 1; //START bit
+    while(I2C2CONbits.SEN==1);//wait for SEN to clear
+    IFS3bits.MI2C2IF = 0; //reset
+    
+    I2C2TRN = SLAVE_ADDRESS; //8 bits consisting of the salve address and the R/nW bit (0 = write, 1 = read)
+    while(IFS3bits.MI2C2IF==0); //wait for it to be 1, ACK
+    IFS3bits.MI2C2IF = 0; //reset
+    
+    
     while(i<16)
     {
-        lcd_printChar(*s);
-        s++;
-        if(*s == 0)
+        if(i==8)//change to check if s is 12, 12 is newline
         {
+            lcd_setCursor(1,0);
+            I2C2CONbits.SEN = 1; //START bit
+            while(I2C2CONbits.SEN==1);//wait for SEN to clear
+            IFS3bits.MI2C2IF = 0; //reset
+    
+            I2C2TRN = SLAVE_ADDRESS; //8 bits consisting of the salve address and the R/nW bit (0 = write, 1 = read)
+             while(IFS3bits.MI2C2IF==0); //wait for it to be 1, ACK
+             IFS3bits.MI2C2IF = 0; //reset
+    
+            
+        }
+        out = *s;
+        s++;
+        if(*s == 0 || i==15 || i==7)
+        {
+            I2C2TRN = 0b01000000;//control byte, RS =1, last char
+            while(IFS3bits.MI2C2IF==0); //wait for it to be 1, ACK
+            IFS3bits.MI2C2IF = 0; //reset
+            
+            I2C2TRN = out; //data byte
+            while(IFS3bits.MI2C2IF==0); //wait for it to be 1, ACK
+            IFS3bits.MI2C2IF = 0; //reset
+            
+            I2C2CONbits.PEN = 1; //STOP bit
+            while(I2C2CONbits.PEN == 1);//wait for Stop bit to complete
+            IFS3bits.MI2C2IF = 0; //reset
+            
+            if(*s == 0 || i==15)
+            {
             break;
+            }
+        }
+        else
+        {
+            I2C2TRN = 0b11000000;//control byte, RS =1, last char
+            while(IFS3bits.MI2C2IF==0); //wait for it to be 1, ACK
+            IFS3bits.MI2C2IF = 0; //reset
+            
+            I2C2TRN = out; //data byte
+            while(IFS3bits.MI2C2IF==0); //wait for it to be 1, ACK
+            IFS3bits.MI2C2IF = 0; //reset
+            
+            
         }
         i++;
     }
-    
 }
 
 void setup(void)
@@ -166,6 +205,20 @@ int main(void) {
     setup();
     lcd_init();
     lcd_printStr(&test);
+    wait(500);
+    lcd_cmd(0b00011000); //shifts display
+    wait(500);
+    lcd_cmd(0b00011000); //shifts display
+    wait(500);
+    lcd_cmd(0b00011000); //shifts display
+    wait(500);
+    lcd_cmd(0b00011000); //shifts display
+    wait(500);
+    lcd_cmd(0b00011000); //shifts display
+    wait(500);
+    lcd_cmd(0b00011000); //shifts display
+    wait(500);
+    lcd_cmd(0b00011000); //shifts display
     while(1)
     {
         wait(500);
