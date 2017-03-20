@@ -29,7 +29,7 @@
 
 #define SLAVE_ADDRESS 0b01111100 //set to write, last bit is R/nW
 
-unsigned char contrast = 0b00111111; //global variable for constrast
+unsigned char contrast = 0b00010111; //global variable for constrast
 
 void wait(int t)
 {
@@ -81,7 +81,7 @@ void lcd_init(void)
     lcd_cmd(contrastmanip); // Power/ICON/Contrast control
     
     lcd_cmd(0b01101100); //Follower control
-    wait(250);
+    wait(200);
     lcd_cmd(0b00111000); //function set, normal instruction mode
     lcd_cmd(0b00001100); //Display on, cursor off
     lcd_cmd(0b00000001); //clears display
@@ -140,7 +140,7 @@ int main(void) {
     while(1)
     {
         wait(500);
-        asm("btg LATA, #2");
+        asm("btg LATA, #0");
     lcd_printChar('A');
     }
     return 0;
