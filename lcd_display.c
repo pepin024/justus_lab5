@@ -30,6 +30,7 @@
 #define SLAVE_ADDRESS 0b01111100 //set to write, last bit is R/nW
 
 unsigned char contrast = 0b00010111; //global variable for constrast
+const char test[] = {' ','H','E','L','L','O',' ',' ', ' ','W','o','r','l','d','\0'};
 
 void wait(int t)
 {
@@ -121,6 +122,33 @@ void lcd_printChar(char myChar)
     IFS3bits.MI2C2IF = 0; //reset
 }
 
+void lcd_printStr(const char *s)
+{
+    int i = 0;
+    while(i<8)
+    {
+        lcd_printChar(*s);
+        s+=1;
+        if(*s == 0)
+        {
+            break;
+        }
+        i++;
+    }
+    lcd_setCursor(1,0);
+    while(i<16)
+    {
+        lcd_printChar(*s);
+        s++;
+        if(*s == 0)
+        {
+            break;
+        }
+        i++;
+    }
+    
+}
+
 void setup(void)
 {
     CLKDIVbits.RCDIV = 0;   //sets clock speed
@@ -137,11 +165,12 @@ void setup(void)
 int main(void) {
     setup();
     lcd_init();
+    lcd_printStr(&test);
     while(1)
     {
         wait(500);
         asm("btg LATA, #0");
-    lcd_printChar('A');
+    
     }
     return 0;
 }

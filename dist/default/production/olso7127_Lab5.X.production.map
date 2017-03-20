@@ -59,10 +59,11 @@ Program Memory  [Origin = 0x200, Length = 0xa9fc]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200                0xce           0x135  (309)
-.text                        0x2ce               0x17a           0x237  (567)
-.dinit                       0x448                 0xa             0xf  (15)
+.const                       0x2ce                0x10            0x18  (24)
+.text                        0x2de               0x1d0           0x2b8  (696)
+.dinit                       0x4ae                 0xa             0xf  (15)
 
-                 Total program memory used (bytes):          0x37b  (891) 1%
+                 Total program memory used (bytes):          0x414  (1044) 1%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0xfc]
@@ -102,18 +103,20 @@ External Symbols in Program Memory (by address):
 
                   0x000200                  __resetPRI
                   0x00023c                  __psv_init
-                  0x000252                  __data_init_standard
                   0x000252                  __data_init
+                  0x000252                  __data_init_standard
                   0x0002c8                  __DefaultInterrupt
-                  0x0002ce                  _wait
-                  0x0002e8                  _lcd_cmd
-                  0x00033a                  _lcd_init
-                  0x000388                  _lcd_setCursor
-                  0x0003b6                  _lcd_printChar
-                  0x00040a                  _setup
-                  0x00042a                  _main
-                  0x00043c                  _delay_100us
-                  0x000442                  _delay_1ms
+                  0x0002ce                  _test
+                  0x0002de                  _wait
+                  0x0002f8                  _lcd_cmd
+                  0x00034a                  _lcd_init
+                  0x000398                  _lcd_setCursor
+                  0x0003c6                  _lcd_printChar
+                  0x00041a                  _lcd_printStr
+                  0x000470                  _setup
+                  0x000490                  _main
+                  0x0004a2                  _delay_100us
+                  0x0004a8                  _delay_1ms
 
 External Symbols in Program Memory (by name):
 
@@ -122,15 +125,17 @@ External Symbols in Program Memory (by name):
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x00043c                  _delay_100us
-                  0x000442                  _delay_1ms
-                  0x0002e8                  _lcd_cmd
-                  0x00033a                  _lcd_init
-                  0x0003b6                  _lcd_printChar
-                  0x000388                  _lcd_setCursor
-                  0x00042a                  _main
-                  0x00040a                  _setup
-                  0x0002ce                  _wait
+                  0x0004a2                  _delay_100us
+                  0x0004a8                  _delay_1ms
+                  0x0002f8                  _lcd_cmd
+                  0x00034a                  _lcd_init
+                  0x0003c6                  _lcd_printChar
+                  0x00041a                  _lcd_printStr
+                  0x000398                  _lcd_setCursor
+                  0x000490                  _main
+                  0x000470                  _setup
+                  0x0002ce                  _test
+                  0x0002de                  _wait
 
 Memory Configuration
 
@@ -203,25 +208,25 @@ __CONFIG1
 .comment
  *(.comment)
 
-.debug_info       0x000000        0x6a0
+.debug_info       0x000000        0x71f
  *(.debug_info)
- .debug_info      0x000000        0x619 build/default/production/lcd_display.o
- .debug_info      0x000619         0x87 build/default/production/delayLib.o
+ .debug_info      0x000000        0x698 build/default/production/lcd_display.o
+ .debug_info      0x000698         0x87 build/default/production/delayLib.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x13a
+.debug_abbrev     0x000000        0x17e
  *(.debug_abbrev)
- .debug_abbrev    0x000000        0x126 build/default/production/lcd_display.o
- .debug_abbrev    0x000126         0x14 build/default/production/delayLib.o
+ .debug_abbrev    0x000000        0x16a build/default/production/lcd_display.o
+ .debug_abbrev    0x00016a         0x14 build/default/production/delayLib.o
 
-.debug_line       0x000000        0x128
+.debug_line       0x000000        0x13e
  *(.debug_line)
- .debug_line      0x000000         0xec build/default/production/lcd_display.o
- .debug_line      0x0000ec         0x3c build/default/production/delayLib.o
+ .debug_line      0x000000        0x102 build/default/production/lcd_display.o
+ .debug_line      0x000102         0x3c build/default/production/delayLib.o
 
-.debug_frame      0x000000         0xd8
+.debug_frame      0x000000         0xf4
  *(.debug_frame)
- .debug_frame     0x000000         0xd8 build/default/production/lcd_display.o
+ .debug_frame     0x000000         0xf4 build/default/production/lcd_display.o
 
 .debug_str        0x000000         0x29
  *(.debug_str)
@@ -234,10 +239,10 @@ __CONFIG1
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000         0x78
+                  0x000000         0x92
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0x78 build/default/production/lcd_display.o
+                  0x000000         0x92 build/default/production/lcd_display.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -858,18 +863,23 @@ __c30_signature
 .config_IESO      0x00abfc          0x2
  .config_IESO     0x00abfc          0x2 build/default/production/lcd_display.o
 
-.text             0x0002ce        0x17a
- .text            0x0002ce        0x16e build/default/production/lcd_display.o
-                  0x0002ce                  _wait
-                  0x0002e8                  _lcd_cmd
-                  0x00033a                  _lcd_init
-                  0x000388                  _lcd_setCursor
-                  0x0003b6                  _lcd_printChar
-                  0x00040a                  _setup
-                  0x00042a                  _main
- .text            0x00043c          0xc build/default/production/delayLib.o
-                  0x00043c                  _delay_100us
-                  0x000442                  _delay_1ms
+.const              0x82ce         0x10 load address 0x0002ce  
+ .const             0x82ce         0x10 build/default/production/lcd_display.o
+                    0x82ce                  _test
 
-.dinit            0x000448          0xa
- .dinit           0x000448          0xa data_init
+.text             0x0002de        0x1d0
+ .text            0x0002de        0x1c4 build/default/production/lcd_display.o
+                  0x0002de                  _wait
+                  0x0002f8                  _lcd_cmd
+                  0x00034a                  _lcd_init
+                  0x000398                  _lcd_setCursor
+                  0x0003c6                  _lcd_printChar
+                  0x00041a                  _lcd_printStr
+                  0x000470                  _setup
+                  0x000490                  _main
+ .text            0x0004a2          0xc build/default/production/delayLib.o
+                  0x0004a2                  _delay_100us
+                  0x0004a8                  _delay_1ms
+
+.dinit            0x0004ae          0xa
+ .dinit           0x0004ae          0xa data_init
