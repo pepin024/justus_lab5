@@ -60,11 +60,11 @@ section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200                0xce           0x135  (309)
 .const                       0x2ce                0x10            0x18  (24)
-.text                        0x2de               0x2c6           0x429  (1065)
-.dinit                       0x5a4                0x1a            0x27  (39)
-.text                        0x5be                 0xc            0x12  (18)
+.text                        0x2de               0x2dc           0x44a  (1098)
+.dinit                       0x5ba                0x1a            0x27  (39)
+.text                        0x5d4                 0xc            0x12  (18)
 
-                 Total program memory used (bytes):          0x5af  (1455) 2%
+                 Total program memory used (bytes):          0x5d0  (1488) 2%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0xfc]
@@ -118,13 +118,13 @@ External Symbols in Program Memory (by address):
                   0x0003c6                  _lcd_printChar
                   0x00041a                  _lcd_printStr
                   0x000470                  _lcd_printStrB
-                  0x0004b8                  _lcd_cmdSeqStart
-                  0x000506                  _lcd_cmdSeqMid
-                  0x000536                  _lcd_cmdSeqEnd
-                  0x000572                  _setup
-                  0x000592                  _main
-                  0x0005be                  _delay_100us
-                  0x0005c4                  _delay_1ms
+                  0x0004c8                  _lcd_cmdSeqStart
+                  0x000516                  _lcd_cmdSeqMid
+                  0x000546                  _lcd_cmdSeqEnd
+                  0x000582                  _setup
+                  0x0005a2                  _main
+                  0x0005d4                  _delay_100us
+                  0x0005da                  _delay_1ms
 
 External Symbols in Program Memory (by name):
 
@@ -133,19 +133,19 @@ External Symbols in Program Memory (by name):
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x0005be                  _delay_100us
-                  0x0005c4                  _delay_1ms
+                  0x0005d4                  _delay_100us
+                  0x0005da                  _delay_1ms
                   0x0002f8                  _lcd_cmd
-                  0x000536                  _lcd_cmdSeqEnd
-                  0x000506                  _lcd_cmdSeqMid
-                  0x0004b8                  _lcd_cmdSeqStart
+                  0x000546                  _lcd_cmdSeqEnd
+                  0x000516                  _lcd_cmdSeqMid
+                  0x0004c8                  _lcd_cmdSeqStart
                   0x00034a                  _lcd_init
                   0x0003c6                  _lcd_printChar
                   0x00041a                  _lcd_printStr
                   0x000470                  _lcd_printStrB
                   0x000398                  _lcd_setCursor
-                  0x000592                  _main
-                  0x000572                  _setup
+                  0x0005a2                  _main
+                  0x000582                  _setup
                   0x0002ce                  _test
                   0x0002de                  _wait
 
@@ -220,21 +220,21 @@ __CONFIG1
 .comment
  *(.comment)
 
-.debug_info       0x000000        0x82c
+.debug_info       0x000000        0x83b
  *(.debug_info)
- .debug_info      0x000000        0x7aa build/default/production/lcd_display.o
- .debug_info      0x0007aa         0x82 build/default/production/delayLib.o
+ .debug_info      0x000000        0x7b9 build/default/production/lcd_display.o
+ .debug_info      0x0007b9         0x82 build/default/production/delayLib.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x17c
+.debug_abbrev     0x000000        0x18d
  *(.debug_abbrev)
- .debug_abbrev    0x000000        0x168 build/default/production/lcd_display.o
- .debug_abbrev    0x000168         0x14 build/default/production/delayLib.o
+ .debug_abbrev    0x000000        0x179 build/default/production/lcd_display.o
+ .debug_abbrev    0x000179         0x14 build/default/production/delayLib.o
 
-.debug_line       0x000000        0x168
+.debug_line       0x000000        0x16b
  *(.debug_line)
- .debug_line      0x000000        0x12c build/default/production/lcd_display.o
- .debug_line      0x00012c         0x3c build/default/production/delayLib.o
+ .debug_line      0x000000        0x12f build/default/production/lcd_display.o
+ .debug_line      0x00012f         0x3c build/default/production/delayLib.o
 
 .debug_frame      0x000000        0x164
  *(.debug_frame)
@@ -883,8 +883,8 @@ __c30_signature
  .const             0x82ce         0x10 build/default/production/lcd_display.o
                     0x82ce                  _test
 
-.text             0x0002de        0x2c6
- .text            0x0002de        0x2c6 build/default/production/lcd_display.o
+.text             0x0002de        0x2dc
+ .text            0x0002de        0x2dc build/default/production/lcd_display.o
                   0x0002de                  _wait
                   0x0002f8                  _lcd_cmd
                   0x00034a                  _lcd_init
@@ -892,16 +892,16 @@ __c30_signature
                   0x0003c6                  _lcd_printChar
                   0x00041a                  _lcd_printStr
                   0x000470                  _lcd_printStrB
-                  0x0004b8                  _lcd_cmdSeqStart
-                  0x000506                  _lcd_cmdSeqMid
-                  0x000536                  _lcd_cmdSeqEnd
-                  0x000572                  _setup
-                  0x000592                  _main
+                  0x0004c8                  _lcd_cmdSeqStart
+                  0x000516                  _lcd_cmdSeqMid
+                  0x000546                  _lcd_cmdSeqEnd
+                  0x000582                  _setup
+                  0x0005a2                  _main
 
-.dinit            0x0005a4         0x1a
- .dinit           0x0005a4         0x1a data_init
+.dinit            0x0005ba         0x1a
+ .dinit           0x0005ba         0x1a data_init
 
-.text             0x0005be          0xc
- .text            0x0005be          0xc build/default/production/delayLib.o
-                  0x0005be                  _delay_100us
-                  0x0005c4                  _delay_1ms
+.text             0x0005d4          0xc
+ .text            0x0005d4          0xc build/default/production/delayLib.o
+                  0x0005d4                  _delay_100us
+                  0x0005da                  _delay_1ms

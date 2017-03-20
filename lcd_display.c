@@ -158,7 +158,7 @@ void lcd_printStrB(char text[], int row){
     lcd_cmdSeqStart(1, text[i]);
     
     for(i = 1; i < 40; i++){
-        if(text[i] == '/0')
+        if(text[i] == 0)
             break;
         lcd_cmdSeqMid(1, text[i]);
     }
@@ -229,12 +229,13 @@ void setup(void)
 int main(void) {
     setup();
     lcd_init();
-    lcd_printChar('A');
-    //lcd_printStrB(testB, 0);
+    //lcd_printChar('A');
+    lcd_printStrB(testB, 0);
     while(1)
     {
         wait(500);
         asm("btg LATA, #0");
+        lcd_cmd(0b00011000);
     
     }
     return 0;
