@@ -15,7 +15,7 @@ extern "C" {
     void lcd_cmdSeqStart(int RS, char command);
     void lcd_cmdSeqMid(int RS, char command);
     void lcd_cmdSeqEnd(int RS, char command);
-    void lcd_prntStrB(char text[], int row);
+    void lcd_printStrB(char text[], int row);
     
     void lcd_setCursor(unsigned char x, unsigned char y);
     void lcd_init(void);

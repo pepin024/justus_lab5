@@ -153,6 +153,14 @@ void lcd_printStr(const char *s)
     
 }
 
+  /**
+
+    <b>Description:</b> Writes string to screen on specified line
+
+    <b>Parameters:</b><br> <b>char text[]:</b> text string to be displayed<br>
+                  <b>int row:</b> chooses whether text is displayed on first(0) or second line(1) 
+  
+ */
 void lcd_printStrB(char text[], int row){
     int i = 0;
     lcd_setCursor(row,0);
@@ -168,6 +176,18 @@ void lcd_printStrB(char text[], int row){
     return;
 }
 
+/**
+ * 
+ * @param <b>RS:</b>value of the RS bit in address frame
+ * @param <b>command:</b> data to be written during data frame
+ * 
+ * <b>Description:</b> Sends START sequence and slave address followed by a single command to be followed by subseguent lcd_cmdSeqMid calls
+ * 
+ * <b>Example:</b>//Writes "Foo" to display
+ *                lcd_cmdSeqStart(1, 'F');
+ *                lcd_cmdSegMid(1, 'o');
+ *                lcd_cmdSeqEnd(1, 'o');
+ */
 void lcd_cmdSeqStart(int RS, char command){
     I2C2CONbits.SEN = 1; //START bit
     while(I2C2CONbits.SEN==1);//wait for SEN to clear
@@ -187,6 +207,20 @@ void lcd_cmdSeqStart(int RS, char command){
     return;
 }
 
+/**
+ * 
+ * @param <b>RS:</b>value of the RS bit in address frame
+ * @param <b>command:</b> data to be written during data frame
+ * 
+ * <b>Description:</b> Sends single command byte to be followed by subsequent lcd_cmdSeqMid() or a lcd_cmdSeqEnd() call
+ * 
+ * <b>Preconditions:</b> First lcd_cmdSeqMid call must be preceeded by a lcd_cmdSeqStart() call
+ * 
+ * <b>Example:</b>//Writes "Foo" to display
+ *                lcd_cmdSeqStart(1, 'F');
+ *                lcd_cmdSegMid(1, 'o');
+ *                lcd_cmdSeqEnd(1, 'o');
+ */
 void lcd_cmdSeqMid(int RS, char command){
     I2C2TRN = ((1 << 7) | (RS << 6) | CONTROL_ADDRESS);
     while(IFS3bits.MI2C2IF == 0);
@@ -199,6 +233,20 @@ void lcd_cmdSeqMid(int RS, char command){
     
 }
 
+/**
+ * 
+ * @param <b>RS:</b>value of the RS bit in address frame
+ * @param <b>command:</b> data to be written during data frame
+ * 
+ * <b>Description:</b> Sends single command byte followed by END sequence
+ * 
+ * <b>Preconditions:</b> Must be preceeded by a lcd_cmdSeqStart() and optionally one or more lcd_cmdSeqMid() calls
+ * 
+ * <b>Example:</b>//Writes "Foo" to display
+ *                lcd_cmdSeqStart(1, 'F');
+ *                lcd_cmdSegMid(1, 'o');
+ *                lcd_cmdSeqEnd(1, 'o');
+ */
 void lcd_cmdSeqEnd(int RS, char command){
     I2C2TRN = ((0 << 7) | (RS << 6) | CONTROL_ADDRESS);
     while(IFS3bits.MI2C2IF == 0);
