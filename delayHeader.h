@@ -13,6 +13,7 @@ extern "C" {
 #endif
     void delay_100us(void);
     void delay_1ms(void);
+    void wait(int t);
 
 
 

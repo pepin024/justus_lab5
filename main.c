@@ -1,8 +1,9 @@
 
 #include "xc.h"
+#include <p24Fxxxx.h>
+
 #include "delayHeader.h"
 #include "lcd_display.h"
-#include <p24Fxxxx.h>
 
 #pragma config POSCMOD = NONE           // Primary Oscillator Select (Primary oscillator disabled)
 #pragma config I2C1SEL = PRI            // I2C1 Pin Location Select (Use default SCL1/SDA1 pins)
@@ -22,6 +23,10 @@
 #pragma config GWRP = OFF               // General Code Segment Write Protect (Writes to program memory are allowed)
 #pragma config GCP = OFF                // General Code Segment Code Protect (Code protection is disabled)
 #pragma config JTAGEN = OFF             // JTAG Port Enable (JTAG port is disabled)
+
+const char test[] = {' ','H','E','L','L','O',' ',' ', ' ','W','o','r','l','d','\0'};
+char testB[] = "Hello World!";
+char testC[] = "^( ^.^ )^  (> ^.^)>  ^( ^.^ )^  <(^.^ <)  v( ^.^ )v  ";
 
 void setup(void)
 {

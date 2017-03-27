@@ -21,6 +21,6 @@ _delay_1ms:	    ;16000 cycles
 	nop	    ;15988
 	return
     
-    
+    .end
 
 

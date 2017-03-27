@@ -6,15 +6,14 @@
  */
 #include "xc.h"
 #include "delayHeader.h"
+#include "lcd_display.h"
 #include <p24Fxxxx.h>
 
 #define SLAVE_ADDRESS 0b01111100 //set to write, last bit is R/nW
 #define CONTROL_ADDRESS 0b000000
 
 unsigned char contrast = 0b00010111; //global variable for constrast
-const char test[] = {' ','H','E','L','L','O',' ',' ', ' ','W','o','r','l','d','\0'};
-char testB[] = "Hello World!";
-char testC[] = "^( ^.^ )^  (> ^.^)>  ^( ^.^ )^  <(^.^ <)  v( ^.^ )v  ";
+
 
 
 void lcd_cmd(char command)
