@@ -16,6 +16,8 @@
                    projectFiles="true">
       <itemPath>lcd_display.c</itemPath>
       <itemPath>delayLib.s</itemPath>
+      <itemPath>main.c</itemPath>
+      <itemPath>delayLib.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

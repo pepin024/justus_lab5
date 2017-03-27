@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=lcd_display.c delayLib.s
+SOURCEFILES_QUOTED_IF_SPACED=lcd_display.c delayLib.s main.c delayLib.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/lcd_display.o ${OBJECTDIR}/delayLib.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/lcd_display.o.d ${OBJECTDIR}/delayLib.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/lcd_display.o ${OBJECTDIR}/delayLib.o ${OBJECTDIR}/main.o ${OBJECTDIR}/delayLib.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/lcd_display.o.d ${OBJECTDIR}/delayLib.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/delayLib.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/lcd_display.o ${OBJECTDIR}/delayLib.o
+OBJECTFILES=${OBJECTDIR}/lcd_display.o ${OBJECTDIR}/delayLib.o ${OBJECTDIR}/main.o ${OBJECTDIR}/delayLib.o
 
 # Source Files
-SOURCEFILES=lcd_display.c delayLib.s
+SOURCEFILES=lcd_display.c delayLib.s main.c delayLib.c
 
 
 CFLAGS=
@@ -95,6 +95,20 @@ ${OBJECTDIR}/lcd_display.o: lcd_display.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  lcd_display.c  -o ${OBJECTDIR}/lcd_display.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/lcd_display.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/lcd_display.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/main.o.d 
+	@${RM} ${OBJECTDIR}/main.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  main.c  -o ${OBJECTDIR}/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/delayLib.o: delayLib.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/delayLib.o.d 
+	@${RM} ${OBJECTDIR}/delayLib.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  delayLib.c  -o ${OBJECTDIR}/delayLib.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/delayLib.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/delayLib.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/lcd_display.o: lcd_display.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -102,6 +116,20 @@ ${OBJECTDIR}/lcd_display.o: lcd_display.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/lcd_display.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  lcd_display.c  -o ${OBJECTDIR}/lcd_display.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/lcd_display.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/lcd_display.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/main.o.d 
+	@${RM} ${OBJECTDIR}/main.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  main.c  -o ${OBJECTDIR}/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/main.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/delayLib.o: delayLib.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/delayLib.o.d 
+	@${RM} ${OBJECTDIR}/delayLib.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  delayLib.c  -o ${OBJECTDIR}/delayLib.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/delayLib.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/delayLib.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 
